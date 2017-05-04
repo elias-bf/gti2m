@@ -2,8 +2,8 @@ Criação de um conta no github
 Clonar o repositorio disponibilizado pelo professor (gti2m)
 	git clone https://github.com/elias-bf/gti2m.git
 
-Comandos do git
-	git log [nome do arquiovo]
+Comandos do git (manual resumido)
+	git log [nome do arquivo]
 		Lista as mudanças realizadas em um arquivo
 
 	git ls-files
@@ -29,3 +29,34 @@ Comandos do git
 	git pull
 		Recebe todas as alterações que estão no repositório remoto
 
+
+
+
+Passo-a-passo para uso do git / github
+
+	1. Clonar o projeto
+		git clone url_do_seu_repositorio_no_GitHub
+
+	2. Entre na pasta do projeto que foi clonada (por exemplo gti2m) e configure as informações do usuário local
+		git config user.name "Seu nome"
+		git config user.email "seu.email@provedor.com"
+
+	3. Criar seu(s) arquivo(s) ou modifcar algum(ns) existente(s)
+		por exemplo, utilize o "gedit" (linux) ou o Notepad (Windows) para criar/modificar um ou mais arquivos
+
+	4. Adicione o(s) arquivo para o controle do git (ou seja, envie o arquivo/modificação para a área de staging)
+		git add nomeDoSeuArquivo.extensao
+
+	5. Faça o commit do arquivo, ou seja, crie uma versão desse arquivo no repositório
+		git commit -m "Comentário explicativo sobre a alteração que está sendo versionada"
+
+	6. Atualize seu repositório antes de enviar suas modificações para o GitHub
+		git pull
+
+	7. Envie suas modificações para o repositório remoto do GitHub
+		git push
+
+	
+
+	Obs 1: os passos de 3 a 7 devem ser repetidos para toda alteração que for realizada por você.
+	Obs 2: o passo 6 pode apresentar conflito. O conflito exige sua intervenção para corrigi-lo.
