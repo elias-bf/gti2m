@@ -26,3 +26,6 @@ Comandos do git
 	git push
 		Envia a versão do repositório local (git directory) para o repostorio remoto (github)
 
+	git pull
+		Recebe todas as alterações que estão no repositório remoto
+
