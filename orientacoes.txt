@@ -20,3 +20,9 @@ Comandos do git
 		Permite a configuração de usuário e email 
 
 
+	git commit -m "comentario sobre a mudança"
+		gera uma versões dos arquivos que estão na área de Staging
+
+	git push
+		Envia a versão do repositório local (git directory) para o repostorio remoto (github)
+
