@@ -1,4 +1,4 @@
-Criação de um conta no github
+Criação de um conta no github (www.github.com)
 Clonar o repositorio disponibilizado pelo professor (gti2m)
 	git clone https://github.com/elias-bf/gti2m.git
 
