@@ -1,0 +1,12 @@
+
+Lista de comandos a serem utilizados
+
+git clone
+git config
+git add
+git commit
+git push
+
+
+git status
+git ls-files
