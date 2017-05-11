@@ -1,0 +1,394 @@
+ME
+
+git-ls-files - Show information about files in the index and the working tree
+
+SYNOPSIS
+
+git ls-files [-z] [-t] [-v]
+                (--[cached|deleted|others|ignored|stage|unmerged|killed|modified])*
+                (-[c|d|o|i|s|u|k|m])*
+                [--eol]
+                [-x <pattern>|--exclude=<pattern>]
+                [-X <file>|--exclude-from=<file>]
+                [--exclude-per-directory=<file>]
+                [--exclude-standard]
+                [--error-unmatch] [--with-tree=<tree-ish>]
+                [--full-name] [--abbrev] [--] [<file>]
+DESCRIPTION
+
+This merges the file listing in the directory cache index with the actual working directory list, and shows different combinations of the two.
+
+One or more of the options below may be used to determine the files shown:
+
+OPTIONS
+
+-c
+--cached
+Show cached files in the output (default)
+
+-d
+--deleted
+Show deleted files in the output
+
+-m
+--modified
+Show modified files in the output
+
+-o
+--others
+Show other (i.e. untracked) files in the output
+
+-i
+--ignored
+Show only ignored files in the output. When showing files in the index, print only those matched by an exclude pattern. When showing "other" files, show only those matched by an exclude pattern.
+
+-s
+--stage
+Show staged contents' object name, mode bits and stage number in the output.
+
+--directory
+If a whole directory is classified as "other", show just its name (with a trailing slash) and not its whole contents.
+
+--no-empty-directory
+Do not list empty directories. Has no effect without --directory.
+
+-u
+--unmerged
+Show unmerged files in the output (forces --stage)
+
+-k
+--killed
+Show files on the filesystem that need to be removed due to file/directory conflicts for checkout-index to succeed.
+
+-z
+\0 line termination on output.
+
+-x <pattern>
+--exclude=<pattern>
+Skip untracked files matching pattern. Note that pattern is a shell wildcard pattern. See EXCLUDE PATTERNS below for more information.
+
+-X <file>
+--exclude-from=<file>
+Read exclude patterns from <file>; 1 per line.
+
+--exclude-per-directory=<file>
+Read additional exclude patterns that apply only to the directory and its subdirectories in <file>.
+
+--exclude-standard
+Add the standard Git exclusions: .git/info/exclude, .gitignore in each directory, and the users global exclusion file.
+
+--error-unmatch
+If any <file> does not appear in the index, treat this as an error (return 1).
+
+--with-tree=<tree-ish>
+When using --error-unmatch to expand the user supplied <file> (i.e. path pattern) arguments to paths, pretend that paths which were removed in the index since the named <tree-ish> are still present. Using this option with -s or -u options does not make any sense.
+
+-t
+This feature is semi-deprecated. For scripting purpose, git-status(1) --porcelain and git-diff-files(1) --name-status are almost always superior alternatives, and users should look at git-status(1) --short or git-diff(1) --name-status for more user-friendly alternatives.
+
+This option identifies the file status with the following tags (followed by a space) at the start of each line:
+
+H
+cached
+
+S
+skip-worktree
+
+M
+unmerged
+
+R
+removed/deleted
+
+C
+modified/changed
+
+K
+to be killed
+
+?
+other
+
+-v
+Similar to -t, but use lowercase letters for files that are marked as assume unchanged (see git-update-index(1)).
+
+--full-name
+When run from a subdirectory, the command usually outputs paths relative to the current directory. This option forces paths to be output relative to the project top directory.
+
+--abbrev[=<n>]
+Instead of showing the full 40-byte hexadecimal object lines, show only a partial prefix. Non default number of digits can be specified with --abbrev=<n>.
+
+--debug
+After each line that describes a file, add more data about its cache entry. This is intended to show as much information as possible for manual inspection; the exact format may change at any time.
+
+--eol
+Show <eolinfo> and <eolattr> of files. <eolinfo> is the file content identification used by Git when the "text" attribute is "auto" (or not set and core.autocrlf is not false). <eolinfo> is either "-text", "none", "lf", "crlf", "mixed" or "".
+
+"" means the file is not a regular file, it is not in the index or not accessible in the working tree.
+
+<eolattr> is the attribute that is used when checking out or committing, it is either "", "-text", "text", "text=auto", "text eol=lf", "text eol=crlf". Note: Currently Git does not support "text=auto eol=lf" or "text=auto eol=crlf", that may change in the future.
+
+Both the <eolinfo> in the index ("i/<eolinfo>") and in the working tree ("w/<eolinfo>") are shown for regular files, followed by the ("attr/<eolattr>").
+
+--
+Do not interpret any more arguments as options.
+
+<file>
+Files to show. If no files are given all files which match the other specified criteria are shown.
+
+Output
+
+git ls-files just outputs the filenames unless --stage is specified in which case it outputs:
+
+[<tag> ]<mode> <object> <stage> <file>
+git ls-files --eol will show i/<eolinfo><SPACES>w/<eolinfo><SPACES>attr/<eolattr><SPACE*><TAB><file>
+
+git ls-files --unmerged and git ls-files --stage can be used to examine detailed information on unmerged paths.
+
+For an unmerged path, instead of recording a single mode/SHA-1 pair, the index records up to three such pairs; one from tree O in stage 1, A in stage 2, and B in stage 3. This information can be used by the user (or the porcelain) to see what should eventually be recorded at the path. (see git-read-tree(1) for more information on state)
+
+When -z option is not used, TAB, LF, and backslash characters in pathnames are represented as \t, \n, and \\, respectively.
+
+Exclude Patterns
+
+git ls-files can use a list of "exclude patterns" when traversing the directory tree and finding files to show when the flags --others or --ignored are specified. gitignore(5) specifies the format of exclude patterns.
+
+These exclude patterns come from these places, in order:
+
+The command-line flag --exclude=<pattern> specifies a single pattern. Patterns are ordered in the same order they appear in the command line.
+
+The command-line flag --exclude-from=<file> specifies a file containing a list of patterns. Patterns are ordered in the same order they appear in the file.
+
+The command-line flag --exclude-per-directory=<name> specifies a name of the file in each directory git ls-files examines, normally .gitignore. Files in deeper directories take precedence. Patterns are ordered in the same order they appear in the files.
+
+A pattern specified on the command line with --exclude or read from the file specified with --exclude-from is relative to the top of the directory tree. A pattern read from a file specified by --exclude-per-directory is relative to the directory that the pattern file appears i
+
+COMANDOS DO GIT STATUS
+
+
+OPTIONS
+
+-s
+--short
+Give the output in the short-format.
+
+-b
+--branch
+Show the branch and tracking info even in short-format.
+
+--porcelain
+Give the output in an easy-to-parse format for scripts. This is similar to the short output, but will remain stable across Git versions and regardless of user configuration. See below for details.
+
+--long
+Give the output in the long-format. This is the default.
+
+-v
+--verbose
+In addition to the names of files that have been changed, also show the textual changes that are staged to be committed (i.e., like the output of git diff --cached). If -v is specified twice, then also show the changes in the working tree that have not yet been staged (i.e., like the output of git diff).
+
+-u[<mode>]
+--untracked-files[=<mode>]
+Show untracked files.
+
+The mode parameter is used to specify the handling of untracked files. It is optional: it defaults to all, and if specified, it must be stuck to the option (e.g. -uno, but not -u no).
+
+The possible options are:
+
+no - Show no untracked files.
+
+normal - Shows untracked files and directories.
+
+all - Also shows individual files in untracked directories.
+
+When -u option is not used, untracked files and directories are shown (i.e. the same as specifying normal), to help you avoid forgetting to add newly created files. Because it takes extra work to find untracked files in the filesystem, this mode may take some time in a large working tree. Consider enabling untracked cache and split index if supported (see git update-index --untracked-cache and git update-index --split-index), Otherwise you can use no to have git status return more quickly without showing untracked files.
+
+The default can be changed using the status.showUntrackedFiles configuration variable documented in git-config(1).
+
+--ignore-submodules[=<when>]
+Ignore changes to submodules when looking for changes. <when> can be either "none", "untracked", "dirty" or "all", which is the default. Using "none" will consider the submodule modified when it either contains untracked or modified files or its HEAD differs from the commit recorded in the superproject and can be used to override any settings of the ignore option in git-config(1) or gitmodules(5). When "untracked" is used submodules are not considered dirty when they only contain untracked content (but they are still scanned for modified content). Using "dirty" ignores all changes to the work tree of submodules, only changes to the commits stored in the superproject are shown (this was the behavior before 1.7.0). Using "all" hides all changes to submodules (and suppresses the output of submodule summaries when the config option status.submoduleSummary is set).
+
+--ignored
+Show ignored files as well.
+
+-z
+Terminate entries with NUL, instead of LF. This implies the --porcelain output format if no other format is given.
+
+--column[=<options>]
+--no-column
+Display untracked files in columns. See configuration variable column.status for option syntax.--column and --no-column without options are equivalent to always and never respectively.
+
+OUTPUT
+
+The output from this command is designed to be used as a commit template comment. The default, long format, is designed to be human readable, verbose and descriptive. Its contents and format are subject to change at any time.
+
+The paths mentioned in the output, unlike many other Git commands, are made relative to the current directory if you are working in a subdirectory (this is on purpose, to help cutting and pasting). See the status.relativePaths config option below.
+
+Short Format
+In the short-format, the status of each path is shown as
+
+XY PATH1 -> PATH2
+where PATH1 is the path in the HEAD, and the " -> PATH2" part is shown only when PATH1 corresponds to a different path in the index/worktree (i.e. the file is renamed). The XY is a two-letter status code.
+
+The fields (including the ->) are separated from each other by a single space. If a filename contains whitespace or other nonprintable characters, that field will be quoted in the manner of a C string literal: surrounded by ASCII double quote (34) characters, and with interior special characters backslash-escaped.
+
+For paths with merge conflicts, X and Y show the modification states of each side of the merge. For paths that do not have merge conflicts, X shows the status of the index, and Y shows the status of the work tree. For untracked paths, XY are ??. Other status codes can be interpreted as follows:
+
+' ' = unmodified
+
+M = modified
+
+A = added
+
+D = deleted
+
+R = renamed
+
+C = copied
+
+U = updated but unmerged
+
+Ignored files are not listed, unless --ignored option is in effect, in which case XY are !!.
+
+X          Y     Meaning
+-------------------------------------------------
+          [MD]   not updated
+M        [ MD]   updated in index
+A        [ MD]   added to index
+D         [ M]   deleted from index
+R        [ MD]   renamed in index
+C        [ MD]   copied in index
+[MARC]           index and work tree matches
+[ MARC]     M    work tree changed since index
+[ MARC]     D    deleted in work tree
+-------------------------------------------------
+D           D    unmerged, both deleted
+A           U    unmerged, added by us
+U           D    unmerged, deleted by them
+U           A    unmerged, added by them
+D           U    unmerged, deleted by us
+A           A    unmerged, both added
+U           U    unmerged, both modified
+-------------------------------------------------
+?           ?    untracked
+!           !    ignored
+-------------------------------------------------
+If -b is used the short-format status is preceded by a line
+
+Git-status - Mostra o estado da árvore de trabalho
+
+SINOPSE
+
+Git status [<options> ...] [-] [<pathspec> ...]
+DESCRIÇÃO
+
+Exibe caminhos que têm diferenças entre o arquivo de índice eo commit HEAD atual, caminhos que têm diferenças entre a árvore de trabalho eo arquivo de índice e caminhos na árvore de trabalho que não são rastreados pelo Git (e não são ignorados pelo gitignore (5) ). O primeiro é o que você iria cometer executando git commit ; O segundo eo terceiro são o que você poderia cometer executando o git add antes de executar git commit .
+
+OPÇÕES
+
+S
+--curto
+Dê a saída no formato curto.
+
+B
+--ramo
+Mostrar o ramo e informações de rastreamento, mesmo em formato curto.
+
+--porcelana
+Dê a saída em um formato fácil de analisar para scripts. Isso é semelhante à saída curta, mas permanecerá estável nas versões do Git e independentemente da configuração do usuário. Veja abaixo detalhes.
+
+--longo
+Dê a saída no formato longo. Esse é o padrão.
+
+-v
+--verbose
+Além dos nomes de arquivos que foram alterados, também mostram as alterações textuais que são encenadas para serem confirmadas (isto é, como a saída do git diff --cached ). Se -v for especificado duas vezes, mostre também as alterações na árvore de trabalho que ainda não foram encenadas (isto é, como a saída de git diff ).
+
+-u [<modo>]
+--untracked-files [= <modo>]
+Mostrar arquivos não acompanhados.
+
+O parâmetro mode é usado para especificar o tratamento de arquivos não acompanhados. É opcional: é padrão para todos e, se especificado, ele deve estar preso à opção (por exemplo , -uno , mas não -u não ).
+
+As opções possíveis são:
+
+No - Mostrar nenhum arquivo não apontado.
+
+Normal - Mostra arquivos e diretórios não acompanhados.
+
+All - Mostra também arquivos individuais em diretórios não acompanhados.
+
+Quando a opção -u não é usada, os arquivos e diretórios não acompanhados são mostrados (ou seja, o mesmo que especificar o normal ), para ajudar a evitar esquecer de adicionar arquivos recém-criados. Como é preciso trabalho extra para encontrar arquivos não acompanhados no sistema de arquivos, esse modo pode levar algum tempo em uma grande árvore de trabalho. Considere a possibilidade de habilitar cache untracked e índice de divisão se suportado (ver git update-index --untracked-cache e git update-index --split-index ), Caso contrário, você pode usar não ter git status retornar mais rapidamente sem mostrar arquivos não acompanhados.
+
+O padrão pode ser alterado usando a variável de configuração status.showUntrackedFiles documentada no git-config (1) .
+
+--ignore-submodules [= <quando>]
+Ignorar alterações aos submódulos ao procurar alterações. <When> pode ser "none", "untracked", "dirty" ou "all", que é o padrão. Utilizar "none" irá considerar o submódulo modificado quando contém arquivos não acompanhados ou modificados ou seu HEAD difere do commit registrado no superprojeto e pode ser usado para substituir qualquer configuração da opção ignore no git-config (1) ou gitmodules ( 5) . Quando "untracked" é usado submódulos não são considerados sujos quando eles contêm apenas conteúdo não acompanhado (mas eles ainda são verificados para conteúdo modificado). Usando "sujo" ignora todas as mudanças na árvore de trabalho dos submódulos, Apenas são mostradas as alterações dos commit armazenados no superproject (este era o comportamento anterior a 1.7.0). Usando "all" oculta todas as alterações nos submódulos (e suprime a saída dos resumos do submódulo quando a opção de configuração status.submoduleSummary está definida).
+
+--ignored
+Mostrar arquivos ignorados também.
+
+Z
+Termine entradas com NUL, em vez de LF. Isso implica o formato de saída --porcelainha se nenhum outro formato é dado.
+
+--column [= <opções>]
+Nenhuma coluna
+Exibir arquivos não acompanhados em colunas. Consulte a variável de configuração column.status para obter a sintaxe da opção. --column e --no-column without options são equivalentes a always e never respectivamente.
+
+SAÍDA
+
+A saída desse comando foi projetada para ser usada como um comentário de modelo de commit. O padrão, formato longo, é projetado para ser legível por humanos, detalhado e descritivo. Seu conteúdo e formato estão sujeitos a alterações a qualquer momento.
+
+Os caminhos mencionados na saída, ao contrário de muitos outros comandos Git, são feitos relativos ao diretório atual se você estiver trabalhando em um subdiretório (isso é de propósito, para ajudar a cortar e colar). Veja a opção de configuração status.relativePaths abaixo.
+
+Formato Curto
+No formato curto, o status de cada caminho é mostrado como
+
+XY PATH1 -> PATH2
+Onde PATH1 é o caminho no HEAD ea parte " -> PATH2 " é mostrada somente quando PATH1 corresponde a um caminho diferente no índice / worktree (ou seja, o arquivo é renomeado). O XY é um código de status de duas letras.
+
+Os campos (incluindo o -> ) estão separados uns dos outros por um único espaço. Se um nome de arquivo contiver espaços em branco ou outros caracteres não imprimíveis, esse campo será citado na forma de um literal de cadeia C: cercado por caracteres ASCII de citação dupla (34) e com caracteres especiais internos de barra invertida.
+
+Para caminhos com conflitos de mesclagem, X e Y mostram os estados de modificação de cada lado da mesclagem. Para caminhos que não têm conflitos de mesclagem, X mostra o status do índice e Y mostra o status da árvore de trabalho. Para caminhos não seguidos, XY são ?? . Outros códigos de status podem ser interpretados da seguinte maneira:
+
+'' = Não modificado
+
+M = modificado
+
+A = adicionado
+
+D = suprimido
+
+R = renomeado
+
+C = copiado
+
+U = atualizado, mas não gerado
+
+Os arquivos ignorados não estão listados, a menos que a opção --ignored esteja em vigor, caso em que XY são !! .
+
+XY Significado
+-------------------------------------------------
+          [MD] não atualizado
+M [MD] atualizado em índice
+A [MD] adicionado ao índice
+D [M] excluído do índice
+R [MD] renomeado em índice
+C [MD] copiado em índice
+[MARC] índice e árvore de trabalho correspondem
+[MARC] M árvore de trabalho alterada desde índice
+[MARC] D excluído na árvore de trabalho
+-------------------------------------------------
+DD unmerged, ambos excluídos
+AU unmerged, adicionado por nós
+UD unmerged, excluído por eles
+UA unmerged, adicionado por eles
+DU unmerged, excluído por nós
+AA unmerged, ambos adicionados
+UU unmerged, ambos modificados
+-------------------------------------------------
+? ? Sem rastreamento
+! ! Ignorado
+-------------------------------------------------
+Se -b é usado, o status de formato curto é precedido por uma linha
+
+## informações de rastreamento de filial
