@@ -1,0 +1,6 @@
+ 
+LS-FILES 
+O software ls é fundamental para os amantes do uso de terminal. Sem ele, esqueça! Não é possível verificar os arquivos existentes nos diretórios.
+
+GIT STATUS
+Você tem um repositório Git e um checkout ou cópia funcional dos arquivos para esse projeto. Você precisa fazer algumas mudanças e fazer o commit das partes destas mudanças em seu repositório cada vez que o projeto atinge um estado no qual você queira grava
