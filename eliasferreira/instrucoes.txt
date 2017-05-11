@@ -1,4 +1,6 @@
-
+ELIAS BATISTA FERREIRA
+PROFESSOR
+FACULDADE SENAC GOIAS
 Lista de comandos a serem utilizados
 
 git clone
