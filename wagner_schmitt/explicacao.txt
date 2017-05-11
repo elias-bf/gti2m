@@ -1,0 +1,4 @@
+git ls-files = Show information about files in the index and the working tree. // Mostra insformações sobre os arquivos que estão na index e no ramo funcional.
+
+git status =  Show the working tree status. // Mostra o(s) estado(s) do(s) arquivo(s) que estão sendo trabalhados no ramo funcional, no momento.
+	
