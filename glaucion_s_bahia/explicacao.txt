@@ -1,3 +1,4 @@
+....
 git ls-files
    Mostra os arquivos que estão sendo monitorados pelo git
 
