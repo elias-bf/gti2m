@@ -1,0 +1,2 @@
+git-ls-files = Mostrar informações sobre arquivos no índice e na árvore de trabalho
+git-status = Mostrar o estado da árvore de trabalho
