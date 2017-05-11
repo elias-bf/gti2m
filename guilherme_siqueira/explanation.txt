@@ -1,0 +1,5 @@
+Explicação sobre os comandos "git ls-files" e "git status":
+
+git ls-files = Este comando mostra informações sobre os arquivos no index e a arvore de funcionamento dos mesmos.
+
+git status = Este comando mostra como está o funcionamento da arvore de funcionamento dos arquivos.
