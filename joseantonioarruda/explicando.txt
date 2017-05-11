@@ -1,0 +1,7 @@
+ls -files
+
+I'm using msysgit (1.7.9), and I'm looking for the right invocation of the git ls-files command to show just the (tracked) files and directories at the current level, either from the index, or the current working directory if that's easier. 
+
+git status
+
+Displays paths that have differences between the index file and the current HEAD commit, paths that have differences between the working tree and the index file, and paths in the working tree that are not tracked by Git (and are not ignored by gitignore[5]). The first are what you would commit by running git commit; the second and third are what you could commit by running git add before running git commit.
