@@ -5,7 +5,7 @@ public class ola{
 		System.out.println("Goiânia, 11 de maio");
 		System.out.println("Faculdade Senac Goias");
 		System.out.println("Laboratorio 311");
-		
+		System.out.println("Um texto qualquer");
 
 	}
 
