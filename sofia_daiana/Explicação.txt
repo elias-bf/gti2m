@@ -1,0 +1,11 @@
+Git-ls-files - Mostra informações sobre arquivos no índice e na árvore de trabalho.
+Mescla a lista de arquivos no índice de cache de diretório com a lista de diretório 
+de trabalho real e mostra combinações diferentes dos dois.
+
+
+
+Git-status - Mostra o estado da árvore de trabalho.
+Exibe caminhos que têm diferenças entre o arquivo de índice e o commit HEAD atual, caminhos que têm diferenças 
+entre a árvore de trabalho eo arquivo de índice e caminhos na árvore de trabalho que não são rastreados pelo Git 
+(e não são ignorados pelo gitignore [5] ). O primeiro é o que você iria cometer por correr git commit; O segundo e 
+o terceiro são o que você poderia cometer executando o git add antes de correr git commit.
