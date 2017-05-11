@@ -10,3 +10,6 @@ git push
 
 git status
 git ls-files
+
+UM TEXTO QUALQUER
+MANOEL FERREIRA
