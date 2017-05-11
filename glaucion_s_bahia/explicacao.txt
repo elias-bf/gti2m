@@ -1,0 +1,7 @@
+....
+git ls-files
+   Mostra os arquivos que estão sendo monitorados pelo git
+
+git status
+   Mostra a situação dos arquivos que esta sendo alterado local
+
