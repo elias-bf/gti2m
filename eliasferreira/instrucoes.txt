@@ -10,5 +10,11 @@ git push
 
 git status
 git ls-files
+<<<<<<< HEAD
 HUGO
 
+=======
+
+UM TEXTO QUALQUER
+MANOEL FERREIRA
+>>>>>>> 02fac2b67883cf319c5a52856f9438c5342af05e
