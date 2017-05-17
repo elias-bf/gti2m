@@ -1,0 +1,416 @@
+COMANDO GIT LS-FILES
+
+Git-ls-files - Mostra informações sobre arquivos no índice e na árvore de trabalho
+SINOPSE
+
+  Git ls-files [-z] [-t] [-v]
+		 (- [em cache | excluído | outros | ignorado | estágio | unmerged | mortos | modificado]) *
+		 (- [c | d | o | i | s | u | k | m]) *
+		 [--eol]
+		 [-x <padrão> | --exclude = <padrão>]
+		 [-X <file> | --exclude-from = <file>]
+		 [--exclude-per-directory = <file>]
+		 [--exclude-standard]
+		 [--error-unmatch] [--with-tree = <árvore-ish>]
+		 [--full-name] [--recurse-submodules]
+		 [--abbrev] [-] [<file> ...] 
+
+DESCRIÇÃO
+
+Isso mescla a lista de arquivos no índice de cache de diretório com a lista de diretório de trabalho real e mostra combinações diferentes dos dois.
+
+Uma ou mais das opções abaixo podem ser usadas para determinar os arquivos mostrados:
+OPÇÕES
+
+C
+--cached
+
+    Mostrar arquivos em cache na saída (padrão) 
+D
+--suprimido
+
+    Mostrar arquivos apagados na saída 
+M
+--modificado
+
+    Mostrar arquivos modificados na saída 
+O
+--outras
+
+    Mostrar outros arquivos (ou seja, não rastreados) na saída 
+-Eu
+--ignored
+
+    Mostrar somente arquivos ignorados na saída. Ao exibir arquivos no índice, imprima apenas aqueles correspondidos por um padrão de exclusão. Ao mostrar "outros" arquivos, mostre apenas os correspondentes a um padrão de exclusão. 
+S
+--etapa
+
+    Mostrar os bits do modo de conteúdo encenado, o nome do objeto eo número do estágio na saída. 
+--diretório
+
+    Se um diretório inteiro é classificado como "outro", mostre apenas o seu nome (com uma barra) e não todo o seu conteúdo. 
+--não-vazio-diretório
+
+    Não liste diretórios vazios. Não tem efeito sem --diretório. 
+-você
+--unmerged
+
+    Mostrar arquivos unmerged na saída (forces --stage) 
+-k
+--qualificado
+
+    Mostrar arquivos no sistema de arquivos que precisam ser removidos devido a conflitos de arquivos / diretórios para o checkout-index ter sucesso. 
+Z
+
+    \ 0 terminação de linha na saída e não citar nomes de arquivo. Veja OUTPUT abaixo para mais informações. 
+-x <padrão>
+--exclude = <padrão>
+
+    Saltar arquivos não acompanhados correspondência padrão. Observe que o padrão é um padrão de curinga de shell. Veja EXCLUDE PATTERNS abaixo para mais informações. 
+-X <file>
+--exclude-from = <file>
+
+    Ler excluir padrões de <file>; 1 por linha. 
+--exclude-per-directory = <file>
+
+    Leia outros padrões de exclusão que se aplicam apenas ao diretório e seus subdiretórios em <file>. 
+--excluir-padrão
+
+    Adicione as exclusões padrão do Git: .git / info / exclude, .gitignore em cada diretório e o arquivo de exclusão global do usuário. 
+--error-unmatch
+
+    Se algum <arquivo> não aparecer no índice, trate isso como um erro (retornar 1). 
+--with-tree = <árvore-ish>
+
+    Ao usar --error-unmatch para expandir os argumentos <file> (ie path pattern) fornecidos pelo usuário para os caminhos, finja que os caminhos que foram removidos no índice desde o nome <tree-ish> ainda estão presentes. Usar esta opção com as opções -s ou -u não faz sentido. 
+T
+
+    Este recurso é semi-deprecated. Para propósitos de script, git-status [1] --porcelain e git-diff-files [1] --name-status são quase sempre alternativas superiores, e os usuários devem olhar git-status [1] --short or git- --name-status [1] --name-status para --name-status mais amigáveis.
+
+    Essa opção identifica o status do arquivo com as seguintes marcas (seguidas por um espaço) no início de cada linha: 
+H
+
+    Em cache 
+S
+
+    Pular árvore de trabalho 
+M
+
+    Desintegrado 
+R
+
+    Removido / excluído 
+C
+
+    Modificado / alterado 
+K
+
+    ser morto 
+?
+
+    de outros 
+-v
+
+    Semelhante a -t , mas use letras minúsculas para arquivos que são marcados como assumir inalterado (ver git-update-index [1] ). 
+--nome completo
+
+    Quando executado a partir de um subdiretório, o comando geralmente emite caminhos relativos ao diretório atual. Essa opção força os caminhos a serem enviados em relação ao diretório superior do projeto. 
+--recurse-submodules
+
+    Recursivamente chama ls-files em cada submódulo no repositório. Atualmente, há apenas suporte para o modo --cached. 
+--abbrev [= <n>]
+
+    Em vez de mostrar as linhas de objeto hexadecimal completo de 40 bytes, mostre apenas um prefixo parcial. O número de dígitos não padrão pode ser especificado com --abbrev = <n>. 
+--depurar
+
+    Depois de cada linha que descreve um arquivo, adicione mais dados sobre sua entrada de cache. Isto é pretendido mostrar tanta informação como possível para a inspeção manual; O formato exato pode mudar a qualquer momento. 
+--eol
+
+    Mostrar <eolinfo> e <eolattr> de arquivos. <Eolinfo> é a identificação de conteúdo do arquivo usada pelo Git quando o atributo "text" é "auto" (ou não definido e core.autocrlf não é falso). <Eolinfo> é "-text", "none", "lf", "crlf", "mixed" ou "".
+
+    "" Significa que o arquivo não é um arquivo regular, ele não está no índice ou não está acessível na árvore de trabalho.
+
+    <Eolattr> é o atributo que é usado ao verificar ou cometer, é "" texto "," text "," texto eol = lf "," texto eol = crlf ". Uma vez que o Git 2.10 "text = auto eol = lf" e "text = auto eol = crlf" são suportados.
+
+    Tanto o <eolinfo> no índice ("i / <eolinfo>") e na árvore de trabalho ("w / <eolinfo>") são mostrados para arquivos regulares, seguidos do ("attr / <eolattr>"). 
+-
+
+    Não interprete mais argumentos como opções. 
+<File>
+
+    Arquivos para mostrar. Se nenhum arquivo for fornecido, todos os arquivos que correspondam aos outros critérios especificados serão exibidos. 
+
+Saída
+
+Git ls-files apenas produz os nomes dos arquivos , a menos que --stage seja especificado, caso em que ele sairá:
+
+  [<Tag>] <modo> <objeto> <etapa> <arquivo> 
+
+Git ls-files --eol mostrará i / <eolinfo> <SPACES> com <eolinfo> <SPACES> attr / <eolattr> <SPACE *> <TAB> <file>
+
+Git ls-files --unmerged e git ls-files --stage pode ser usado para examinar informações detalhadas sobre caminhos desimpedidos.
+
+Para um caminho unmerged, em vez de gravar um modo único / SHA-1 par, o índice registra até três desses pares; Uma da árvore O na fase 1, A na fase 2 e B na etapa 3. Esta informação pode ser usada pelo usuário (ou porcelana) para ver o que deve eventualmente ser gravado no caminho. (Veja git-read-tree [1] para mais informações sobre o estado)
+
+Sem a opção -z , os nomes de caminho com caracteres "incomuns" são citados como explicado para a variável de core.quotePath (ver git-config [1] ). Usando -z o nome do arquivo é saída literalmente ea linha é terminada por um byte NUL.
+Excluir padrões
+
+Git ls-files pode usar uma lista de "excluir padrões" ao atravessar a árvore de diretórios e encontrar arquivos para mostrar quando os sinalizadores --outros ou --ignored são especificados. Gitignore [5] especifica o formato dos padrões de exclusão.
+
+Estes padrões excluem vêm destes lugares, em ordem:
+
+    O sinalizador de linha de comando --exclude = <padrão> especifica um único padrão. Os padrões são ordenados na mesma ordem em que aparecem na linha de comando.
+
+    O sinalizador de linha de comando --exclude-from = <file> especifica um arquivo contendo uma lista de padrões. Os padrões são ordenados na mesma ordem em que aparecem no arquivo.
+
+    O sinalizador de linha de comando --exclude-per-directory = <nome> especifica um nome do arquivo em cada diretório git ls-files examina, .gitignore . Arquivos em diretórios mais profundos têm precedência. Os padrões são ordenados na mesma ordem em que aparecem nos arquivos. 
+
+Um padrão especificado na linha de comando com --exclude ou lido a partir do arquivo especificado com --exclude-from é relativo ao topo da árvore de diretório. Um padrão lido a partir de um arquivo especificado por --exclude-per-directory é relativo ao diretório no qual o arquivo de padrão aparece. 
+
+_______________________________________________________________________________________
+
+
+COMANDO GIT STATUS
+
+Git-status - Mostra o estado da árvore de trabalho
+SINOPSE
+
+  Git status [<options> ...] [-] [<pathspec> ...] 
+
+DESCRIÇÃO
+
+Exibe caminhos que têm diferenças entre o arquivo de índice eo commit HEAD atual, caminhos que têm diferenças entre a árvore de trabalho eo arquivo de índice e caminhos na árvore de trabalho que não são rastreados pelo Git (e não são ignorados pelo gitignore [5] ). O primeiro é o que você iria cometer git commit ; O segundo eo terceiro são o que você poderia cometer executando o git add antes de executar git commit .
+OPÇÕES
+
+S
+--curto
+
+    Dê a saída no formato curto. 
+B
+--ramo
+
+    Mostrar o ramo e informações de rastreamento, mesmo em formato curto. 
+--porcelain [= <versão>]
+
+    Dê a saída em um formato fácil de analisar para scripts. Isso é semelhante à saída curta, mas permanecerá estável nas versões do Git e independentemente da configuração do usuário. Veja abaixo detalhes.
+
+    O parâmetro versão é usado para especificar a versão do formato. Isto é opcional e assume o formato original da versão v1 . 
+--longo
+
+    Dê a saída no formato longo. Esse é o padrão. 
+-v
+--verbose
+
+    Além dos nomes de arquivos que foram alterados, também mostram as alterações textuais que são encenadas para serem confirmadas (isto é, como a saída do git diff --cached ). Se -v for especificado duas vezes, mostre também as alterações na árvore de trabalho que ainda não foram encenadas (isto é, como a saída de git diff ). 
+-u [<modo>]
+--untracked-files [= <modo>]
+
+    Mostrar arquivos não acompanhados.
+
+    O parâmetro mode é usado para especificar o tratamento de arquivos não acompanhados. É opcional: é padrão para todos e, se especificado, ele deve estar preso à opção (por exemplo, -uno , mas não -u no ).
+
+    As opções possíveis são:
+
+        No - Mostrar nenhum arquivo não apontado.
+
+        Normal - Mostra arquivos e diretórios não acompanhados.
+
+        All - Mostra também arquivos individuais em diretórios não acompanhados. 
+
+    Quando a opção -u não é usada, os arquivos e diretórios não acompanhados são mostrados (ou seja, o mesmo que especificar o normal ), para ajudar a evitar esquecer de adicionar arquivos recém-criados. Como é preciso trabalho extra para encontrar arquivos não acompanhados no sistema de arquivos, esse modo pode levar algum tempo em uma grande árvore de trabalho. Considere a possibilidade de habilitar cache untracked e índice de divisão se suportado (ver git update-index --untracked-cache e git update-index --split-index ), Caso contrário, você pode usar no ter git status retornar mais rapidamente sem mostrar arquivos não acompanhados.
+
+    O padrão pode ser alterado usando a variável de configuração status.showUntrackedFiles documentada no git-config [1] . 
+--ignore-submodules [= <quando>]
+
+    Ignorar alterações aos submódulos ao procurar alterações. <When> pode ser "none", "untracked", "dirty" ou "all", que é o padrão. O uso de "nenhum" considerará o submódulo modificado quando contém arquivos não acompanhados ou modificados ou seu HEAD difere do commit registrado no superprojeto e pode ser usado para substituir qualquer configuração da opção ignore no git-config [1] ou gitmodules [ 5] . Quando "untracked" é usado submódulos não são considerados sujos quando eles contêm apenas conteúdo não acompanhado (mas eles ainda são verificados para conteúdo modificado). A utilização de "sujo" ignora todas as alterações na árvore de trabalho dos submódulos, apenas são mostradas as alterações dos compromissos armazenados no superprojecto (este era o comportamento anterior a 1.7.0). Usando "all" oculta todas as alterações nos submódulos (e suprime a saída dos resumos do submódulo quando a opção de status.submoduleSummary estiver definida). 
+--ignored
+
+    Mostrar arquivos ignorados também. 
+Z
+
+    Terminar entradas com NUL, em vez de LF. Isso implica o formato de saída --porcelain=v1 se nenhum outro formato for dado. 
+--column [= <opções>]
+Nenhuma coluna
+
+    Exibir arquivos não acompanhados em colunas. Consulte a variável de configuração column.status para obter a sintaxe da opção. --column e --no-column without options são equivalentes a always e never respectivamente. 
+
+SAÍDA
+
+A saída desse comando foi projetada para ser usada como um comentário de modelo de commit. O padrão, formato longo, é projetado para ser legível por humanos, detalhado e descritivo. Seu conteúdo e formato estão sujeitos a alterações a qualquer momento.
+
+Os caminhos mencionados na saída, ao contrário de muitos outros comandos Git, são feitos relativos ao diretório atual se você estiver trabalhando em um subdiretório (isso é de propósito, para ajudar a cortar e colar). Veja a opção de configuração status.relativePaths abaixo.
+Formato curto
+
+No formato curto, o status de cada caminho é mostrado como
+
+  XY PATH1 -> PATH2 
+
+Onde PATH1 é o caminho no HEAD ea parte " -> PATH2 " é mostrada somente quando PATH1 corresponde a um caminho diferente no índice / worktree (ou seja, o arquivo é renomeado). O XY é um código de status de duas letras.
+
+Os campos (incluindo o -> ) estão separados uns dos outros por um único espaço. Se um nome de arquivo contiver espaços em branco ou outros caracteres não imprimíveis, esse campo será citado na forma de um literal de cadeia C: cercado por caracteres ASCII de citação dupla (34) e com caracteres especiais internos de barra invertida.
+
+Para caminhos com conflitos de mesclagem, X e Y mostram os estados de modificação de cada lado da mesclagem. Para caminhos que não têm conflitos de mesclagem, X mostra o status do índice e Y mostra o status da árvore de trabalho. Para caminhos não seguidos, XY são ?? . Outros códigos de status podem ser interpretados da seguinte forma:
+
+    '' = Não modificado
+
+    M = modificado
+
+    A = adicionado
+
+    D = suprimido
+
+    R = renomeado
+
+    C = copiado
+
+    U = atualizado, mas não gerado 
+
+Os arquivos --ignored não estão listados, a menos que a opção --ignored esteja em vigor, caso em que XY são !! .
+
+  XY Significado
+ -------------------------------------------------
+           [MD] não atualizado
+ M [MD] atualizado em índice
+ A [MD] adicionado ao índice
+ D [M] excluído do índice
+ R [MD] renomeado em índice
+ C [MD] copiado no índice
+ [MARC] índice e árvore de trabalho correspondem
+ [MARC] M árvore de trabalho alterada desde índice
+ [MARC] D excluído na árvore de trabalho
+ -------------------------------------------------
+ DD unmerged, ambos excluídos
+ AU unmerged, adicionado por nós
+ UD unmerged, excluído por eles
+ UA unmerged, adicionado por eles
+ DU unmerged, excluído por nós
+ AA unmerged, ambos adicionados
+ UU unmerged, ambos modificados
+ -------------------------------------------------
+ ?  ?  Sem rastreamento
+ !  !  Ignorado
+ ------------------------------------------------- 
+
+Submodules têm mais estado e em vez disso relatório M o submódulo tem uma HEAD diferente do que gravado no índice m o submódulo tem conteúdo modificado? O submódulo tem arquivos não acompanhados desde que o conteúdo modificado ou arquivos não acompanhados em um submódulo não pode ser adicionado via git add no superprojeto para preparar um commit.
+
+M e São aplicadas recursivamente. Por exemplo, se um submódulo aninhado em um submódulo contém um arquivo não rastreado, isso é relatado como ? também.
+
+Se -b é usado, o status de formato curto é precedido por uma linha
+
+  ## informações de rastreamento de filial 
+
+Porcelain Format Versão 1
+
+Versão 1 formato de porcelana é semelhante ao formato curto, mas é garantido para não mudar de uma forma incompatível para trás entre as versões do Git ou com base na configuração do usuário. Isso o torna ideal para análise por scripts. A descrição do formato curto acima também descreve o formato de porcelana, com algumas exceções:
+
+    A configuração color.status do usuário não é respeitada; A cor será sempre desligada.
+
+    A configuração status.relativePaths do usuário não é respeitada; Caminhos mostrados sempre serão relativos à raiz do repositório. 
+
+Há também um formato -z alternativo recomendado para análise de máquina. Nesse formato, o campo de status é o mesmo, mas algumas outras coisas mudam. Primeiro, o -> é omitido de renomear entradas ea ordem de campo é invertida (por exemplo, de -> para torna - se de para ). Em segundo lugar, um NUL (ASCII 0) segue cada nome de arquivo, substituindo o espaço como um separador de campo ea nova linha de terminação (mas um espaço ainda separa o campo de status do primeiro nome de arquivo). Em terceiro lugar, os nomes de arquivos que contêm caracteres especiais não são formatados especialmente; Nenhuma citação ou barra invertida é realizada.
+
+Quaisquer alterações no submódulo são relatadas como M modificado em vez de m ou single ? .
+Porcelain Format Version 2
+
+O formato da Versão 2 adiciona informações mais detalhadas sobre o estado do worktree e itens alterados. Versão 2 também define um conjunto extensível de fácil para analisar cabeçalhos opcionais.
+
+As linhas de cabeçalho começam com "#" e são adicionadas em resposta a argumentos de linha de comando específicos. Parsers devem ignorar cabeçalhos que não reconhecem.
+Cabeçalhos de ramos
+
+Se --branch for dado, uma série de linhas de cabeçalho são impressas com informações sobre o ramo atual.
+
+  Notas da Linha
+ -------------------------------------------------- -benzóico.
+ # Branch.oid <commit> |  (Inicial) Compromisso atual.
+ # Branch.head <branch> |  (Destacado) Ramo atual.
+ # Branch.upstream <upstream_branch> Se upstream estiver definido.
+ # Branch.ab + <ahead> - <behind> Se upstream estiver configurado e
+	      O commit está presente.
+ -------------------------------------------------- -benzóico. 
+
+Entradas de rastreamento alteradas
+
+Seguindo os cabeçalhos, uma série de linhas são impressas para entradas controladas. Um dos três formatos de linha diferentes pode ser usado para descrever uma entrada dependendo do tipo de alteração. As entradas controladas são impressas em uma ordem indefinida; Os analisadores devem permitir uma mistura dos 3 tipos de linha em qualquer ordem.
+
+As entradas alteradas ordinárias têm o seguinte formato:
+
+  1 <XY> <sub> <mH> <mI> <mW> <hH> <hI> <path> 
+
+As entradas renomeadas ou copiadas têm o seguinte formato:
+
+  2 <XY> <sub> <mH> <mI> <mW> <hH> <hI> <X> <score> <path> <sep> <origPath> 
+
+  Significado do campo
+   -------------------------------------------------- -benzóico.
+   <XY> Um campo de 2 caracteres contendo o
+ Valores XY não marcados descritos no formato curto,
+ Com inalterado indicado por um "."  ao invés de
+ um espaço.
+   <Sub> Um campo de 4 caracteres descrevendo o estado do submódulo.
+ "N ..." quando a entrada não é um submódulo.
+ "S <c> <m> <u>" quando a entrada é um submódulo.
+ <C> é "C" se o commit foi alterado;  de outra forma ".".
+ <M> é "M" se tiver acompanhado alterações;  de outra forma ".".
+ <U> é "U" se houver mudanças não controladas;  de outra forma ".".
+   <MH> O modo de arquivo octal em HEAD.
+   <MI> O modo de arquivo octal no índice.
+   <MW> O modo de arquivo octal no worktree.
+   <HH> O nome do objeto em HEAD.
+   <HI> O nome do objeto no índice.
+   <X> <score> A marca de renome ou cópia (que indica a percentagem
+ De semelhança entre a fonte eo alvo da
+ Mover ou copiar).  Por exemplo "R100" ou "C75".
+   <Caminho> O nome do caminho.  Em uma entrada renomeada / copiada, esta
+ É o caminho no índice e na árvore de trabalho.
+   <Sep> Quando a opção `-z` é usada, os 2 nomes de caminhos são separados
+ Com um byte NUL (ASCII 0x00);  Caso contrário, uma guia (ASCII 0x09)
+ Byte separa-los.
+   <OrigPath> O caminho no commit em HEAD.  Isso é apenas
+ Presente em uma entrada renomeada / copiada e
+ Onde o conteúdo renomeado / copiado veio.
+   -------------------------------------------------- -benzóico. 
+
+Entradas não preenchidas têm o seguinte formato; O primeiro caractere é um "u" para distinguir das entradas alteradas comuns.
+
+  <H1> <h2> <h3> <path> <m3> 
+
+  Significado do campo
+   -------------------------------------------------- -benzóico.
+   <XY> Um campo de 2 caracteres descrevendo o tipo de conflito
+ Como descrito no formato curto.
+   <Sub> Um campo de 4 caracteres descrevendo o estado do submódulo
+ como descrito acima.
+   <M1> O modo de arquivo octal no estágio 1.
+   <M2> O modo de arquivo octal no estágio 2.
+   <M3> O modo de arquivo octal no estágio 3.
+   <MW> O modo de arquivo octal no worktree.
+   <H1> O nome do objeto no estágio 1.
+   <H2> O nome do objeto no estágio 2.
+   <H3> O nome do objeto no estágio 3.
+   <Caminho> O nome do caminho.
+   -------------------------------------------------- -benzóico. 
+
+Outros itens
+
+Após as entradas controladas (e se solicitado), uma série de linhas será impressa para itens não acompanhados e, em seguida, ignorados encontrados no worktree.
+
+Itens não acompanhados têm o seguinte formato:
+
+  ?  <Path> 
+
+Os itens ignorados têm o seguinte formato:
+
+  !  <Path> 
+
+Nome do Caminho Format Notes e -z
+
+Quando a opção -z é fornecida, pathnames são impressos como está e sem qualquer citação e as linhas são terminadas com um byte NUL (ASCII 0x00).
+
+Sem a opção -z , os nomes de caminho com caracteres "incomuns" são citados como explicado para a variável de core.quotePath (ver git-config [1] ).
+CONFIGURAÇÃO
+
+O comando honra as color.status (ou status.color - elas status.color a mesma coisa e o último é mantido para compatibilidade com versões anteriores) e color.status.<slot> para colorir sua saída.
+
+Se a variável de status.relativePaths estiver definida como false, todos os caminhos mostrados serão relativos à raiz do repositório e não ao diretório atual.
+
+Se status.submoduleSummary estiver status.submoduleSummary para um número não zero ou verdadeiro (idêntico a -1 ou um número ilimitado), o resumo do submódulo será ativado para o formato longo e um resumo de compromissos para os submódulos modificados será mostrado (ver --um resumo -limit de git-submodule [1] ). Observe que a saída de resumo do comando de status será suprimida para todos os submódulos quando diff.ignoreSubmodules estiver diff.ignoreSubmodules para todos ou apenas para os submódulos onde submodule.<name>.ignore=all . Para também visualizar o resumo dos submódulos ignorados, você pode usar a opção --ignore-submodules = dirty ou o comando sumário do submódulo git , que mostra uma saída semelhante , mas não honra essas configurações . 
